@@ -1,0 +1,48 @@
+;Lee, Alison
+;4340
+;MKS21 Pd1
+;15-11-2
+;LabMakeAtomsTopLevel // HW
+
+;1
+(define hasSublists?
+  (lambda (L)
+    (cond
+      (( null? L ) #f )
+      (( null? ( car L )))
+      ( else ( or ( list? ( car L ))
+                  ( hasSublists? ( cdr L )))))))
+
+;-----
+
+;2 WHAT IS WRONG
+(define countEmpty
+  (lambda (L)
+    (cond
+      (( null? L ) 0 )
+      (( null? ( car L )) 1 )
+      ( else ( countEmpty ( cdr L ))))))
+
+(countEmpty '( 3  2 ( ) ( )))
+(countEmpty '( 2 ( 9 ( ) ( )) ( )))
+(countEmpty '())
+
+;-----
+
+;3 WHAT IS WRONG
+(define mAATL
+  (lambda (L)
+    (cond
+      (( null? L ) L )
+      (( list? ( car L )) ( append
+                            ( mAATL ( car L ))
+                            ( mAATL ( cdr L ))))
+      ( else ( append
+               ( car L )
+               ( mAATL ( cdr L )))))))
+
+
+(mAATL '( 1 2 3 )) ; is (1 2 3)
+(mAATL '( 1 ( ) ( 2 3 ))) ; is (1 2 3)
+(mAATL '( 1 ( 2 ( 3 )))) ; is (1 2 3)
+(mAATL '( ( 1 2 ( 9 2 (( 5 ) 3 ))))) ; is (1 2 9 2 5 3)

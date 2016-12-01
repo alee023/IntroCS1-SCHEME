@@ -1,0 +1,88 @@
+;Lee, Alison
+
+;4340
+
+;MKS21 Period1
+
+;2015-10-13
+
+;Lab5
+
+;1
+(define or35
+  (lambda (n)
+    ( or ( = 0 ( remainder n 3 )) 
+         ( = 0 ( remainder n 5 )))))
+
+;Testing...
+(or35 3)
+(or35 10)
+(or35 8)
+
+;2
+
+
+;3
+(define more20
+  (lambda (n)
+    ( or
+      ( = 1 ( remainder n 20 ))
+      ( = 2 ( remainder n 20 )))))
+
+;Testing...
+(more20 20)
+(more20 21)
+(more20 22)
+
+;4
+(define less20
+  (lambda (n)
+    ( or
+      ( = 0 ( remainder ( + n 1 ) 20 ))
+      ( = 0 ( remainder ( + n 2 ) 20)))))
+
+;Testing...
+(less20 18)
+(less20 19) 
+(less20 20)
+(less20 21)
+
+(less20 38)
+(less20 39)
+
+;5
+
+;We can reuse problems 3 and 4 (but edit it first to fit #5)
+(define more10
+  (lambda (n)
+    ( or
+      ( = 0 ( remainder ( - n 1 ) 10 ))
+      ( = 0 ( remainder ( - n 2 ) 10 )))))
+
+(define less10
+  (lambda (n)
+    ( or
+      ( = 0 ( remainder ( + n 1 ) 10 ))
+      ( = 0 ( remainder ( + n 2 ) 10)))))
+
+(define near10
+  (lambda (n)
+    ( or
+      (more20 n)
+      (less20 n))))
+
+;Otherwise...
+
+(define near10
+  (lambda (n)
+    ( or
+      ( = 0 ( remainder ( - n 1 ) 10 ))
+      ( = 0 ( remainder ( - n 2 ) 10 ))
+      ( = 0 ( remainder ( + n 1 ) 10 ))
+      ( = 0 ( remainder ( + n 2 ) 10)))))
+
+;Testing...
+(near10 12)
+(near10 17)
+(near10 19)
+

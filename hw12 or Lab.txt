@@ -1,0 +1,81 @@
+;Lee, Alison
+;4340
+;MKS21 Pd1
+;15-10-23
+;HW 12 / Lab
+
+;1
+(define sumOfEvenPositive
+  (lambda (L)
+    (cond
+      (( null? L ) 0 )
+      (( and ( > ( car L ) 0 ) ( even? ( car L ))) ( +
+                            ( car L )
+                            ( sumOfEvenPositive ( cdr L ))))
+      ( else ( sumOfEvenPositive ( cdr L ))))))
+
+;Testing...
+( sumOfEvenPositive '( 1 4 -5 6 ))
+( sumOfEvenPositive '( 5 -6 7 ))
+
+;2
+(define maxValue
+  (lambda (L)
+    (cond
+      (( null? L ) 0 )
+      ( else ( max ( car L ) ( maxValue ( cdr L )))))))
+
+;Testing...
+(maxValue '( 1 4 5 -3 7 ))
+(maxValue '( -2 -1 0 ))
+
+;3
+(define maxValue
+  (lambda (L)
+    (cond
+      (( null? L ) 0 )
+      (( list? ( car L )) ( max ( maxValue ( car L ))
+                                ( maxValue ( cdr L ))))
+      ( else ( max ( car L ) ( maxValue ( cdr L )))))))
+
+(maxValue '(( 1 4 ) 5 -3 7 ))
+(maxValue '( -2 ( -1 0 )))
+(maxValue '( 1 4 ( 5 -3 ) 3 ))
+
+;4
+(define countSubs
+  (lambda (L)
+    (cond
+      (( null? L ) 0 )
+      (( list? ( car L )) ( + 1 ( countSubs ( cdr L ))))
+      ( else ( countSubs ( cdr L ))))))
+
+;Testing...
+(countSubs '(( 1 2 3 ) 4 5 ))
+(countSubs '( 4 5 ( 2 ) 4 ( 7 8 )))
+
+;5
+(define countSubsSub
+  (lambda (L)
+    (cond
+      (( null? L ) 0 )
+      (( list? ( car L )) ( + 1
+                              ( countSubsSub ( car L ))
+                              ( countSubsSub ( cdr L ))))
+      ( else (countSubsSub ( cdr L ))))))
+
+(countSubsSub '( 1 ( 2 3 ) ( 4 5 ))) 
+(countSubsSub '( 1 (( 2 3 ) ( 4 5 )))) 
+(countSubsSub '(( 1 ) (( 2 ) 3) ( 4 5 ))) 
+
+;Not the correct answer but useful to know either way - gives top level lists
+(define countSubsSub
+  (lambda (L)
+    (cond
+      (( null? L ) 0 )
+      (( list? ( car L )) ( + 1 ( countSubsSub ( cdr L ))))
+      ( else (countSubsSub ( cdr L ))))))
+
+(countSubsSub '( 1 ( 2 3 ) ( 4 5 ))) ; 2
+(countSubsSub '( 1 (( 2 3 ) ( 4 5 )))) ; 1
+(countSubsSub '(( 1 ) (( 2 ) 3) ( 4 5 ))) ; 3

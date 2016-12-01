@@ -1,0 +1,26 @@
+(define isCloseEnough
+  (lambda ( a b )
+    ( < ( abs ( / ( - a b ) a ))
+        0.00001 )))
+
+(define betterGuess
+  (lambda ( n guess )
+    (cond
+      (( = ( / n guess ) guess ) guess )
+      (( not ( = ( / n guess ) guess )) ( / n guess )))))
+
+(define sqrtHelp
+  (lambda ( n guess )
+    (cond
+      (( = ( betterGuess  n guess ) guess ) guess )
+      (( isCloseEnough ( / n guess ) guess ) guess )
+      ( else ( sqrtHelp 100 ( betterGuess
+                          ( / ( + ( / n guess ) guess ) 2 )
+                          guess ))))))
+
+(define mySqrt
+  (lambda ( n )
+    ( sqrtHelp n 1.0 )))
+      
+      
+(mySqrt 100)

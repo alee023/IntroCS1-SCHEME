@@ -1,0 +1,12 @@
+;Lee, Alison
+;4340
+;MKS21 Period1
+;2015-10-17
+;HW 10
+
+(define exponent
+  (lambda (base power)
+    (cond
+      (( or ( = 1 base )
+            ( = 0 power )) 1 )
+      ( else ( * base ( exponent base ( - power 1 )))))))

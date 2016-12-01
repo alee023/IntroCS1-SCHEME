@@ -1,0 +1,24 @@
+;Lee, Alison
+;4340
+;MKS21 Period1
+;2015-10-5
+;HW 08
+
+(define xor 
+  (lambda (a b)
+    (and (or a b) (not (and a b)))))
+
+;--------------
+
+(define isBetween 
+  (lambda (a b n)
+    (or (and ( < a n ) ( < n b ))
+            (and ( < b n ) ( < n a )))))
+
+;Testing...
+(isBetween 6 9 8)
+(isBetween 9 6 8)
+(isBetween 6 9 3)
+(isBetween 9 6 3)
+(isBetween 6 9 10)
+(isBetween 9 6 10)   

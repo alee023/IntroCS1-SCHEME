@@ -1,0 +1,53 @@
+;Lee, Alison
+;4340
+;MKS21 Period1
+;2015-9-29
+;Lab
+
+
+
+1  (myMax a b)  evaluates to the larger of the two numbers
+(define myMax
+  (lambda (a b)
+    ( / ( + ( abs ( - a b )) a b ) 2 )))
+
+;Testing...
+(myMax 10 12)
+
+
+
+2  (max3 a b c)  evaluates to the largest of the three numbers
+(define myMax
+  (lambda (a b)
+    ( / ( + ( abs ( - a b )) a b ) 2 )))
+
+(define max3
+  (lambda (myMax c)
+    ( / ( + ( abs ( - myMax c )) myMax c ) 2 )))
+
+;Testing...
+(max3 (myMax -1 -11) -3)
+
+
+
+3  (max4 a b c d)  evaluates to the largest of the four numbers
+;Challenge accepted 
+(define myMax
+  (lambda (a b)
+    ( / ( + ( abs ( - a b )) a b ) 2 )))
+
+(define max3
+  (lambda (myMax c)
+    ( / ( + ( abs ( - myMax c )) myMax c ) 2 )))
+
+(define max4
+  (lambda (max3 d)
+    ( / ( + ( abs ( - max3 d )) max3 d ) 2 )))
+
+;Testing...
+
+(max 4 (max3 (myMax -1 -11) -3))
+
+
+
+;It'll be nice if I found another way to do this :(

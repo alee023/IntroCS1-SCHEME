@@ -1,0 +1,139 @@
+;Lee, Alison
+;4340
+;MKS32 Period1
+;2015-11-20
+;Project SENTENCE GENERATOR!
+
+;Part IV : I wasn't sure how Yoda would speak using verbs in present tense ( "She talkS.", "The cat takeS." ), so I didn't really change the sentence structure just for Yoda-speak. I added "Yessssss." and "Hmmmmmm. Yes." and it has a 1/6 ( 16.66% ) of showing up. It works weirdly sometimes :(
+; I also made a Valley Girl thing by adding "like , " (which has a space before the comma which I can't fix) before the verbPhrase. They talk like the stereotypical "white girl."
+
+(define getNth
+  (lambda ( L n )
+    ( cond
+       (( = n 0 ) ( car L ))
+       ( else ( getNth ( cdr L ) ( - n 1 ))))))
+
+(define getOne
+  (lambda ( L )
+    ( getNth L ( random ( length L )))))
+
+;----------
+
+(define nouns
+  '( cereal mango mouse box chair knife guillotine bat pepper clip earring clock dream switch bacterium pomengranate head book animal soap bleach chicken ))
+(define properNouns
+  '( He She Hilary George Ann Mom Dad Napolean Sherlock Einstein Newton Turing Curie Tesla '(Harry Potter) Darwin Hawking Archimedes Cameron Jude Hitler Bob Jane Anonymous ))
+
+(define intransitiveVerbs ; aka (just) verbs
+  '( eats sits reads plays moves sleeps arrives lies sneezes dies cracks crackles divides drains oozes paints pays relaxes shivers talks sails turns twists watches ))
+(define transitiveVerbs
+  '( eats kills attacks chops kicks slaps pushes puts calls opens closes switches holds hugs takes steals pulls robs strokes stirs shakes lends offers tells ))
+
+(define adjectives
+  '( cute small tall huge tiny ugly fat skinny white black annoying boring aggresive ambitious helpful honest knowledgeable witty amused lively anxious wicked ))
+
+(define adverbs
+  '( quickly slowly beautifully wickedly accidentally awkwardly boldly coyly deliberately finally innocently seriously wearily crazily foolishly kindly poorly shakily technically ))
+
+;--------
+
+(define getNoun
+  (lambda ()
+    ( list ( getOne nouns ))))
+(define getProperNoun
+  (lambda ()
+    ( list ( getOne properNouns ))))
+(define getIntransitiveVerb
+  (lambda ()
+    ( list ( getOne intransitiveVerbs ))))
+(define getAdjective
+  (lambda ()
+    ( list ( getOne adjectives ))))
+(define getAdverb
+  (lambda ()
+    ( list ( getOne adverbs ))))
+
+;-------
+
+(define zeroOrMoreAdjectives
+  (lambda ()
+    ( cond
+      (( = 0 ( random 5 )) ( getAdjective ))
+      ( else ( append ( getAdjective )
+                      ( zeroOrMoreAdjectives ))))))
+
+(define zeroOrMoreAdverbs
+  (lambda ()
+    ( cond
+       (( = 0 ( random 5 )) ( getAdverb ))
+       ( else ( append ( getAdverb )
+                       ( zeroOrMoreAdverbs ))))))
+
+;--------
+
+(define getNounPhrase
+  (lambda ()
+    ( cond
+       ( append ( zeroOrMoreAdjectives )
+                ( getNoun )))))
+(define getProperNounPhrase
+  (lambda ()
+    ( getProperNoun )))
+
+(define getVerbPhrase
+  (lambda ()
+    ( cond
+       (( = 0 ( random 2 )) ( append ( zeroOrMoreAdverbs )
+                                     ( getIntransitiveVerb )))
+       (( = 0 ( random 1 )) ( append ( zeroOrMoreAdverbs )
+                                     ( list ( getOne transitiveVerbs ))
+                                     '( the )
+                                     ( getNounPhrase ))))))
+
+;-------
+    
+(define sentence
+  (lambda ()
+    (cond
+      (( = 0 ( random 6 )) ( append '( The )
+                                    ( getNounPhrase )
+                                    ( getVerbPhrase )))
+      (( = 0 ( random 5 )) ( append '( The )
+                                    ( getAdjective )
+                                    ( getNounPhrase )
+                                    ( getVerbPhrase )))
+;YODA
+      (( = 0 ( random 4 ))
+       ( cond
+         (( = 0 ( random 2 )) ( append ( sentence )
+                                      '( yessss )))
+         (( = 0 ( random 1 )) ( append ( sentence )
+                                      '( hmmmmm. Yes )))))
+      (( = 0 ( random 3 )) ( append ( getProperNounPhrase )
+                                    ( getVerbPhrase )))
+      (( = 0 ( random 2 )) ( append ( getProperNounPhrase )
+                                    '( like )
+                                    ( list "," )
+                                    ( getVerbPhrase )))
+      ( else ( append '( The )
+                      ( getAdjective )
+                      ( getAdjective )
+                      ( getNounPhrase )
+                      ( getVerbPhrase ))))))
+
+;-----------
+
+(define displayList
+  (lambda( L )
+    ( cond
+       (( null? ( cdr L ))
+        ( begin ( display ( car L ))
+                ( display ". " )
+                ( newline )))
+       ( else
+         ( begin
+            ( display ( car L ))
+            ( display " " )
+            ( displayList ( cdr L )))))))
+
+(displayList ( sentence ))

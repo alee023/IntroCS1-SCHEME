@@ -1,0 +1,40 @@
+;Lee, Alison
+;4340
+;MKS21 Period1
+;15-10-20
+;Lab 06
+
+(define sumDigits 
+  (lambda (n)
+    (cond
+      (( < n 0 ) ( sumDigits ( abs n )))
+      (( < n 10 ) n )
+      (else ( + ( remainder n 10 ) ( sumDigits( quotient n 10 )))))))
+
+;-----
+
+(define countEvenDigits
+ (lambda (n)
+   (cond
+     (( and ( < n 10 ) ( = ( remainder n 2 ) 0 )) 1 )
+     (( < n 10 ) 0 )
+     (( = ( remainder n 2 ) 0 )
+      ( + 1 ( countEvenDigits ( quotient n 10 ))))
+     ( else ( countEvenDigits ( quotient n 10 ))))))
+
+;Testing...
+(countEvenDigits 123)
+(countEvenDigits 456)
+
+;Another way to write it is...
+
+(define cED
+  (lambda (n)
+    (cond
+      (( and ( < n 10 ) ( = ( remainder n 2 ) 0 )) 1 )
+      (( < n 10 ) 0 )
+      ( else
+        ( + ( cED ( remainder n 10 ))
+            ( cED ( quotient n 10 )))))))
+
+;Note that cED is short for countEvenDigits

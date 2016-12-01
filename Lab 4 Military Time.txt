@@ -1,0 +1,16 @@
+;Lee, Alison
+;4340
+;MKS21 Period1
+;2015-10-7
+;Lab 4
+
+(define to24hourtime
+  (lambda (hour ampm)
+    (cond 
+      ((and ( = 0 ampm ) ( = hour 12 )) ( - 0 hour ))
+      ((and ( = 1 ampm ) ( = hour 12 )) ( + 0 hour ))
+      (( = 0 ampm ) ( + 0 hour))
+      (( = 1 ampm ) ( + 12 hour )))))
+
+(to24hourtime 12 0)
+(to24hourtime 12 1)

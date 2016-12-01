@@ -1,0 +1,66 @@
+;Lee, Alison
+;4340
+;MKS21 Pd1
+;15-10-27
+;LabHailstone
+
+;PRELAB
+(define nextHail
+  (lambda (n)
+    (cond
+      (( even? n ) ( / n 2 ))
+      (( odd? n ) ( + 1 ( * 3 n ))))))
+
+;-------
+
+;1
+(define hailLen
+  (lambda (n)
+    (cond
+      (( = n 1 ) 1 )
+      ( else ( + 1 ( hailLen ( nextHail n )))))))
+
+;2
+(define nextHail
+  (lambda (n)
+    (cond
+      (( even? n ) ( / n 2 ))
+      (( odd? n ) ( + 1 ( * 3 n ))))))
+
+;1
+;2 1
+;3 10 5 16 8 4 2 1
+;4 2 1
+;5 16 8 4 2 1
+;6 3 10 5 16 8 4 2 1
+
+(define maxHail
+  (lambda (n)
+    (cond
+      (( = n 1 ) 1 )
+      ( else ( max
+               ( maxHail ( nextHail n ))
+               ( nextHail n ))))))
+;Based on maxValue but has a faulty part...?
+
+;(maxHail 1) ; 1
+;(maxHail 2) ; 2
+(maxHail 3) ; 16
+(maxHail 4) ; 4
+;(maxHail 5) ; 16
+(maxHail 6) ; 16
+(maxHail 7) ; 52
+
+;3
+(define longestHail
+  (lambda (n)
+    (cond
+      (( = n 1 ) 1 )
+      ( else ( max ( hailLen n )
+                   ( longestHail ( hailLen ( - n 1 ))))))))
+
+(longestHail 1)
+(longestHail 2)
+(longestHail 3)
+(longestHail 4)
+(longestHail 5)

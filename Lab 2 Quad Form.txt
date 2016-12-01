@@ -1,0 +1,34 @@
+;Lee, Alison
+;4340
+;MKS21 Period1
+;2015-9-30
+;Lab
+
+(define disc
+  (lambda (a b c)
+    ( sqrt ( - ( * b b ) (* 4 a c )))))
+
+
+
+;POSROOT
+
+(define posRoot
+  (lambda (a b c)
+    ( / ( + ( * -1 b ) ( disc a b c )) ( * 2 a ))))
+
+;NEGROOT
+
+(define negRoot
+  (lambda (a b c)
+         ( / ( - ( * -1 b ) ( disc a b c )) ( * 2 a ))))
+
+(posRoot 1 6 5)
+(negRoot 1 6 5)
+
+
+;FINDROOT (R5RS, not Scheme)
+;(define findroot 
+ ; (lambda (a b c plusminus)
+  ;  (plusminus a b c)))
+;(findroot 1 6 5 posroot)
+
